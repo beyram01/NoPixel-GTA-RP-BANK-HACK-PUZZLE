@@ -1,38 +1,410 @@
-.App {
+:root {
+  --web-font: "Montserrat", sans-serif;
+  --puzzle-font: "Roboto", "sans-serif";
+  --primary-puzzle-color: #20242e;
+  --secondary-puzzle-color: #2e4561;
+  --black: #000000;
+  --white: #ffffff;
+  --green: #1a8200;
+  --blue: #3300ff;
+  --red: #ff0000;
+  --yellow: #faff00;
+  --purple: #800080;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--web-font);
+}
+
+button,
+a {
+  font-family: var(--web-font);
+}
+
+a {
+  text-decoration: none;
+  color: black;
+  position: relative;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2.5rem 0;
+  font-family: var(--web-font);
+  font-size: 16px;
+}
+nav a:hover::before {
+  content: "";
+  position: absolute;
+  background-color: #000000;
+  width: 100%;
+  height: 1px;
+  top: 100%;
+}
+nav a:nth-child(1),
+nav a:nth-child(2) {
+  margin-right: 1.5rem;
+}
+.landing__page {
+  text-align: center;
+  margin-top: 5rem;
+}
+.landing__page h1 {
+  font-size: 40px;
+}
+.landing__page p {
+  font-size: 17px;
+  max-width: 800px;
+  margin: 1rem auto 3.5rem auto;
+  line-height: 25px;
+}
+.landing__page a {
+  background-color: black;
+  color: white;
+  padding: 0.7rem 4rem;
+  border: 1px solid black;
+  transition: 0.25s ease;
+}
+.practice__page {
+  margin-top: 4rem;
   text-align: center;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.practice__page h2 {
+  font-size: 45px;
+  font-weight: 500;
+}
+.practice__page button {
+  background-color: black;
+  color: white;
+  border: 1px solid black;
+  padding: 0.7rem 8rem;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 1.2px;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+.practice__page button:hover,
+.landing__page a:hover {
+  background-color: white;
+  color: black;
+}
+.settings__container {
+  max-width: fit-content;
+  margin: 3rem auto;
+  text-align: left;
+}
+.settings__container .settings {
+  display: flex;
+  align-items: center;
+}
+.settings__container .settings {
+  margin-bottom: 1.3rem;
+}
+.settings__container label {
+  display: block;
+  width: 150px;
+  font-size: 15px;
+}
+.settings__container label span {
+  background-color: #dbdbdb;
+  padding: 0.2rem 0.4rem;
+  font-size: 14px;
+}
+.settings__container select {
+  width: 100px;
+  font-size: 15px;
+  font-family: var(--web-font);
+  padding: 0.1rem 0.3rem;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/*       Game Panel Styling         */
+
+.puzzle {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background-color: rgb(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.puzzle__panel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--primary-puzzle-color);
+  color: white;
+  width: 90%;
+  height: 95%;
+}
+.loading__screen {
+  text-align: center;
+}
+.loading__screen img {
+  width: 50px;
+  margin-bottom: 1.5rem;
+}
+.loading__screen h2 {
+  font-family: var(--puzzle-font);
+  letter-spacing: 1px;
+  font-size: 25px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.numbers__screen {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.numbers__screen .number__container {
+  background-color: var(--secondary-puzzle-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.numbers__screen .number__container:not(:last-child) {
+  margin-right: 1rem;
+}
+.numbers__screen .number__container h3 {
+  font-size: 80px;
+  animation: shrink 3s ease forwards;
+}
+.puzzle__screen {
+  width: 100%;
+}
+.card__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.puzzle__screen .background {
+  position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  align-items: center;
+}
+.puzzle__screen .background > svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 0;
+  transform: translate(-50%, -50%);
+}
+.puzzle__screen .background h3 {
+  z-index: 10;
+  text-align: center;
+  font-size: 23px;
+  text-shadow: #000 0px 0px 1px, #000 0px 0px 1px, #000 0px 0px 1px,
+    #000 0px 0px 1px, #000 0px 0px 1px, #000 0px 0px 1px, #000 0px 0px 1px,
+    #000 0px 0px 1px, #000 0px 0px 1px;
+}
+.puzzle__screen .background h3:nth-child(3) {
+  font-size: 32px;
+}
+
+.puzzle__screen .background:not(:last-child) {
+  margin-right: 1rem;
+}
+.timer__container {
+  background-color: #835428;
+  width: 80%;
+  height: 5px;
+  margin: 3rem auto 5rem auto;
+  border-radius: 5px;
+  position: relative;
+}
+.timer__container > .timer {
+  background-color: #ff7a00;
+  position: absolute;
+  height: 5px;
+  left: 0;
+  right: 0;
+}
+
+.puzzle__screen .question {
+  text-align: center;
+  margin: 2rem;
+  text-transform: uppercase;
+  font-family: var(--puzzle-font);
+  letter-spacing: 1.1px;
+  font-size: 17px;
+}
+.puzzle__screen form {
+  text-align: center;
+  font-family: var(--puzzle-font);
+}
+.puzzle__screen form label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+.puzzle__screen form input {
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid white;
+  border-radius: 0;
+  padding: 0.5rem 0.3rem;
   color: white;
+  font-size: 15px;
+}
+.puzzle__screen form input:focus-visible {
+  outline: 0;
+  border-bottom: 1px solid white;
 }
 
-.App-link {
-  color: #61dafb;
+.fail__screen,
+.success__screen {
+  text-align: center;
+  font-family: var(--puzzle-font);
+}
+.fail__screen img .success__screen img {
+  width: 50px;
+  margin-bottom: 1.5rem;
+}
+.fail__screen h2,
+.success__screen h2 {
+  letter-spacing: 1px;
+  font-size: 25px;
+  margin-bottom: 8rem;
+}
+.fail__screen button,
+.success__screen button {
+  background-color: var(--secondary-puzzle-color);
+  color: white;
+  padding: 0.6rem 0.7rem;
+  border: none;
+  font-size: 18px;
+  font-family: var(--puzzle-font);
+  cursor: pointer;
+}
+.fail__screen button:first-child,
+.success__screen button:first-child {
+  margin-right: 1rem;
+}
+.fail__screen .comment {
+  font-size: 12px;
+  color: #adadad;
+  margin-top: 1rem;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+/*        Rules Page          */
+
+.rules__page {
+  padding: 0 3.5rem;
+}
+.rules__page h1 {
+  margin-bottom: 2rem;
+}
+.rules__page p {
+  font-size: 16px;
+}
+.content__container {
+  padding: 0 1.5rem;
+}
+.content__container > p {
+  margin: 2rem 0;
+}
+.content__container > img {
+  display: block;
+  width: 60%;
+  margin: auto;
+}
+.puzzle__components {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+}
+.puzzle__components > div > h3 {
+  margin-left: -1rem;
+  margin-bottom: 1rem;
+}
+.puzzle__components > div p {
+  margin-bottom: 1rem;
+}
+.puzzle__components > div > div {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.puzzle__components > div > div > p {
+  margin: 0;
+  margin-right: 1rem;
+}
+.puzzle__components > div span {
+  width: 20px;
+  height: 20px;
+}
+
+#black {
+  background-color: var(--black);
+}
+#white {
+  background-color: var(--white);
+  border: 1px solid black;
+}
+#green {
+  background-color: var(--green);
+}
+#blue {
+  background-color: var(--blue);
+}
+#red {
+  background-color: var(--red);
+}
+#yellow {
+  background-color: var(--yellow);
+}
+#purple {
+  background-color: var(--purple);
+}
+
+@keyframes shrink {
+  0% {
+    font-size: 80px;
   }
-  to {
-    transform: rotate(360deg);
+  66% {
+    font-size: 80px;
+  }
+  100% {
+    font-size: 0px;
+  }
+}
+
+@keyframes timer {
+  0% {
+    left: 0;
+    right: 0;
+  }
+  100% {
+    left: 50%;
+    right: 50%;
+  }
+}
+
+@media (max-width: 850px) {
+  .content__container > img {
+    width: 80%;
+  }
+  .puzzle__components {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .puzzle__components div {
+    margin-bottom: 1rem;
+  }
+  .rules__page p {
+    font-size: 14px;
   }
 }
